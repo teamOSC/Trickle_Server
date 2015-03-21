@@ -107,17 +107,9 @@ def geocode():
     address = request.args.get('address')
     return json.dumps(geocode_(address))
 
-@app.route('/assistant',methods=['GET'])
+@app.route('/adler',methods=['GET'])
 def question():
-    qt = 'How far is kashmir from Delhi ?'
-    headers={}
-    url ="https://gateway.watsonplatform.net/question-and-answer-beta/api"
-    r = requests.post(url,
-        data={'questionText':qt},
-        headers={'Accept':'application/json',"X-SyncTimeout":'30'},
-        auth={'fe4fa332-50cb-4c91-9ce5-84122b753824','swKJrtrfi8fS'},
-        )
-    print r.text
+    q= request.args.get('q')
     return jsonify(response="Hello World")
     
 
