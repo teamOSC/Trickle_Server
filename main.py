@@ -26,7 +26,7 @@ def scrape():
         arr.append(dict)
         print dict
 
-    with open("data/hotels_.json",'r') as f:
+    with open("data/hotels_.json",'w+') as f:
         f.write(json.dumps(arr))
     
     return ""
@@ -56,8 +56,36 @@ def geocode():
     address = request.args.get('address')
     return json.dumps(geocode_(address))
 
+@app.route('/qa',methods=['GET'])
+def question():
+    qt = 'How far is kashmir from Delhi ?'
+    headers={}
+    url ="https://gateway.watsonplatform.net/question-and-answer-beta/api"
+    r = requests.post(url,
+        data={'questionText':qt},
+        headers={'Accept':'application/json',"X-SyncTimeout":'30'},
+        auth={'fe4fa332-50cb-4c91-9ce5-84122b753824','swKJrtrfi8fS'},
+        )
+    print r.text
+    return ""
+
+def test():
+    qt = 'How deep is grand canyon ?'
+    headers={}
+    url ="https://gateway.watsonplatform.net/question-and-answer-beta/api/v1/question/travel"
+    r = requests.post(url,
+        data={'question':{'questionText':qt,'evidenceRequest':{'items':1}}},
+        headers={'Accept':'application/json','Content-Type':'text/json','X-SyncTimeout':'30'},
+        auth=('fe4fa332-50cb-4c91-9ce5-84122b753824','swKJrtrfi8fS')
+        )
+    print r
+    try:
+        print r.text
+    except:
+        pass
+
 
 if __name__ == '__main__':
-    scrape()
-    app.debug = True
-    app.run(host='0.0.0.0', port=8000)
+    test()
+    #app.debug = True
+    #app.run(host='0.0.0.0', port=8000)
