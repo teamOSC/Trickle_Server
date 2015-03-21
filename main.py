@@ -1,9 +1,10 @@
 import flask
-from flask_oauth import OAuth
+#from flask_oauth import OAuth
 from flask import request
 from datetime import datetime
 import json
 import requests
+from flask import jsonify
 
 app = flask.Flask(__name__)
 
@@ -55,7 +56,19 @@ def home():
 AIzaSyDLKMcL0I-b3X_jOiCtdjEI2hDkT5B6J8g"%(map_type,map_lat,map_long)
     #return url
     r = requests.get(url).json()['results']
-    return json.dumps(r)
+    arr=[]
+    for i in r:
+        print i
+        try:
+            dict = get_dict(rating=i['rating'],name=i['name'],
+                coords=i['geometry']['location'],meta="")
+        except KeyError:
+            dict = get_dict(rating='',name=i['name'],
+                coords=i['geometry']['location'],meta="")
+        arr.append(dict)
+
+    return jsonify(data = arr)
+    return json.dumps(arr)
 
 @app.route('/geocode',methods=['GET'])
 def geocode():
