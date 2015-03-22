@@ -84,6 +84,12 @@ def heat():
     
     return json.dumps(heat[:count])
 
+@app.route('/pollution')
+def pollution():
+    with open ('data/pollution_.json') as f:
+        data = json.loads(f.read())
+    return jsonify(data=data)
+
 @app.route('/adler',methods=['GET'])
 def question():
     q = request.args.get('q')
