@@ -66,6 +66,8 @@ def heat():
     map_lat = request.args.get('lat')
     map_long = request.args.get('long')
     heat_type = request.args.get('type')
+    count = request.args.get('count') or '10'
+    count = int(count)
 
     with open ('data/heat2.json') as f:
         data = json.loads(f.read())
@@ -80,7 +82,7 @@ def heat():
     
     heat = sorted(arr_w, key=lambda k: k['dist'])
     
-    return json.dumps(heat[:10])
+    return json.dumps(heat[:count])
 
 @app.route('/adler',methods=['GET'])
 def question():
