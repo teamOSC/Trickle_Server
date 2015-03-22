@@ -96,7 +96,7 @@ def pollution():
 def question():
     q = request.args.get('q')
     resp = chat(q)
-    return jsonify(response=resp)
+    return json.dumps(resp)
     if 'dharamshala' in q:
         resp = """
         Many people take a taxi to Delhi which takes about 10 hours and pay the return fare simply because they don't want to deal with the hassle and pain of taking a bus. These taxis need to return to Dharamshala, and many times will sell seats in their car for the same price as a bus ticket. To find these taxis, go to the Majnu Ki Tila Tibetan Settlement Bus Stand and look for taxis which have Himachal Pradesh License plates. You can negotiate with a driver.
