@@ -2,6 +2,7 @@
 from bs4 import BeautifulSoup
 import requests
 import json
+import ast
 
 def scrape_service():
     with open("data/service.json",'r') as f:
@@ -85,9 +86,12 @@ def scrape_census():
         f.write(json.dumps(arr))
 
 def adler():
-    qt = 'How deep is grand canyon ?'
-    d={'question':{'questionText':qt,'evidenceRequest':{'items':1}}}
+    qt = "How deep is grand canyon ?"
+    d={"question":{"questionText":qt,"evidenceRequest":{"items":1}}}
     url ="https://gateway.watsonplatform.net/question-and-answer-beta/api/v1/question/travel"
+    print type(json.dumps(d))
+    print type(ast.literal_eval(json.dumps(d)))
+    #print type(json.loads(d))
     r = requests.post(url,
         data=json.dumps(d),
         headers={'Accept':'application/json','Content-Type':'text/json','X-SyncTimeout':'30'},
@@ -129,6 +133,6 @@ def foo2():
         f.write(json.dumps(arr))
 
 if __name__ == '__main__':
-    #adler()
-    foo2()
+    adler()
+    #foo2()
     #scrape_census()
