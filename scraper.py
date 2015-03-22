@@ -109,7 +109,9 @@ def foo():
 		i['percent'] = int(i['population'].replace(",",""))/float(max)
 		print i,i['percent'],max
 
-	print data
+	with open('data/heat2.json','w+') as f:
+	    f.write(json.dumps(data))
+	
 
 
 if __name__ == '__main__':

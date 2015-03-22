@@ -22,7 +22,7 @@ def home():
     map_lat = request.args.get('lat')
     map_type = request.args.get('type')
     radius = request.args.get('radius') or 2000
-    map_type.replace(",","|")
+    map_type = map_type.replace(",","|")
 
     with open("data/service__.json",'r') as f:
         data = json.loads(f.read())
@@ -63,8 +63,24 @@ def home():
 
 @app.route('/heat',methods=['GET'])
 def heat():
-    address = request.args.get('address')
-    return json.dumps(geocode_(address))
+    map_lat = request.args.get('lat')
+    map_long = request.args.get('long')
+    heat_type = request.args.get('type')
+
+    with open ('data/heat2.json') as f:
+        data = json.loads(f.read())
+
+    arr_w = []
+    for i in data:
+        try:
+            i['dist'] = math.hypot(float(map_lat) - float(i['coords']['lat']), float(map_long) - float(i['coords']['lng']))
+            arr_w.append(i)
+        except:
+            pass
+    
+    heat = sorted(arr_w, key=lambda k: k['dist'])
+    
+    return json.dumps(heat[:10])
 
 @app.route('/adler',methods=['GET'])
 def question():
