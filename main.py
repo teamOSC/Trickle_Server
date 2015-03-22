@@ -94,6 +94,24 @@ def pollution():
 def question():
     q = request.args.get('q')
     resp = chat(q)
+    if 'dharamshala' in q:
+        resp = """
+        Many people take a taxi to Delhi which takes about 10 hours and pay the return fare simply because they don't want to deal with the hassle and pain of taking a bus. These taxis need to return to Dharamshala, and many times will sell seats in their car for the same price as a bus ticket. To find these taxis, go to the Majnu Ki Tila Tibetan Settlement Bus Stand and look for taxis which have Himachal Pradesh License plates. You can negotiate with a driver.
+        """
+    if 'manali' in q:
+        resp = """
+        Booking Delhi Manali BUS Tickets is easily done with MakeMyTrip Online Bus Booking
+Multiple payment options available - Credit Card/Debit Card/Cash Card or Online bank account
+Please print your online Bus & Train Tickets and carry it while traveling
+Multiple bus types are available such as Volvo, AC, Non AC, AC available between Delhi Manali
+Also check bus fare and timings before making a reservation
+- See more at: http://www.makemytrip.com/bus-tickets/delhi-manali-booking.html#sthash.hx7yZvIp.dpuf
+        """
+    if "goa" in q:
+        resp = """
+        people will tell you what most tourist literatures do: Best time to visit Goa is November to February. But my advice is to go in monsoon. It is lush green, there is no tourist crowd the way it is in winter and most importantly, you will get dirt cheap holiday packages from amongst a whole range of options.
+        """
+
     return jsonify(response=resp)
     
 @app.route('/geocode',methods=['GET'])
