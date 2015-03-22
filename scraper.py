@@ -132,7 +132,38 @@ def foo2():
     with open('data/pollution_.json','w+') as f:
         f.write(json.dumps(arr))
 
+def crimeCrunch():
+    with open ('data/crime.json') as f:
+        data = json.loads(f.read())
+    arr = []
+    for i in data['data']:
+        d={}
+        d['address'] = i[1] + " " + i[0]
+        d['coords'] = geocode_(d['address'])
+        d['crimes'] = i[-1]
+        arr.append(d)
+
+    with open('data/crime_.json','w+') as f:
+        f.write(json.dumps(arr))
+
+def crimeCrunchWomen():
+    with open ('data/crimeW.json') as f:
+        data = json.loads(f.read())
+    arr = []
+    for i in data['data']:
+        d={}
+        d['address'] = i[1] + " " + i[0]
+        d['coords'] = geocode_(d['address'])
+        d['crimes'] = int(i[3]) + int(i[4]) + int(i[5])
+        arr.append(d)
+        print d
+
+    with open('data/crimeW_.json','w+') as f:
+        f.write(json.dumps(arr))
+
+
 if __name__ == '__main__':
-    adler()
+    crimeCrunchWomen()
+    #adler()
     #foo2()
     #scrape_census()
